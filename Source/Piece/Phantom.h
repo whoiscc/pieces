@@ -11,9 +11,12 @@ public:
   virtual Ptr<const Piece> Apply(const Piece &other) const;
 };
 
-class PhantomPieceIsApplied : public PieceException {
+class PhantomGotApplied : public PieceException {
 public:
-  PhantomPieceIsApplied(const PhantomPiece &piece);
+  PhantomGotApplied(const PhantomPiece &piece, const Piece &appliee);
+  const Piece &GetAppliee() const;
+private:
+  const Piece &_appliee;
 };
 
 #endif

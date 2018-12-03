@@ -7,7 +7,7 @@
 
 TEST_CASE("`SymbolPiece::Get` returns same instance for same name") {
   NeverDropPool pool;
-  const Piece &parent = PhantomPiece(pool);
+  const Piece &parent = pool.AddRoot(Ptr<const Piece>(new PhantomPiece(pool)));
   const SymbolPiece &piece1 = SymbolPiece::Get(pool, parent, "something"),
     &piece2 = SymbolPiece::Get(pool, parent, "something");
   REQUIRE(std::addressof(piece1) == std::addressof(piece2));

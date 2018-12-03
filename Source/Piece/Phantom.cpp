@@ -7,11 +7,15 @@ PhantomPiece::PhantomPiece(Pool &pool) : Piece(pool) {
 }
 
 Ptr<const Piece> PhantomPiece::Apply(const Piece &other) const {
-  throw PhantomPieceIsApplied(*this);
+  throw PhantomGotApplied(*this, other);
 }
 
-PhantomPieceIsApplied::PhantomPieceIsApplied(const PhantomPiece &piece)
-  : PieceException(piece)
-{
+PhantomGotApplied::PhantomGotApplied(
+  const PhantomPiece &piece, const Piece &other
+) : PieceException(piece), _appliee(other) {
   //
+}
+
+const Piece &PhantomGotApplied::GetAppliee() const {
+  return _appliee;
 }

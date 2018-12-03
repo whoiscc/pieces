@@ -3,6 +3,7 @@
 #define PIECES_SOURCE_CORE_PARSEEXCEPTION_H
 
 #include "Core/Base.h"
+#include <string>
 
 class InvalidSyntax : public Exception {
 public:
@@ -20,6 +21,16 @@ private:
   char _expected;
 };
 
+class UnknownCharacter : public InvalidSyntax {
+public:
+  UnknownCharacter(const Source &source);
+};
 
+class UnexpectedIdentifier : public InvalidSyntax {
+public:
+  UnexpectedIdentifier(const Source &source, std::string identifier);
+private:
+  std::string _identifier;
+};
 
 #endif

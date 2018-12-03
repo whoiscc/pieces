@@ -29,12 +29,4 @@ class Exception : public std::exception {
   //
 };
 
-class PieceException : public Exception {
-public:
-  PieceException(const Piece &piece) : _piece(piece) {}
-  const Piece &GetPiece() const { return _piece; }
-private:
-  const Piece &_piece;
-};
-
 #endif

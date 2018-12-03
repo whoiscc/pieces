@@ -16,3 +16,11 @@ void Piece::Hold(const Piece &piece) {
 void Piece::Drop(const Piece &piece) {
   _pool.Drop(piece, *this);
 }
+
+PieceException::PieceException(const Piece &piece) : _piece(piece) {
+  //
+}
+
+const Piece &PieceException::GetPiece() {
+  return _piece;
+}

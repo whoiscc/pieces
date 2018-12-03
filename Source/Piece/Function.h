@@ -7,7 +7,7 @@
 #include "Core/Pool.h"
 #include <unordered_map>
 
-class ArgumentPiece: public Piece {
+class ArgumentPiece : public Piece {
 public:
   static const ArgumentPiece &Get(Pool &pool, const Piece &parent, int depth);
 private:
@@ -16,7 +16,7 @@ private:
   static std::unordered_map<int, Ref<const ArgumentPiece>> _table;
 };
 
-class FunctionPiece: public Piece {
+class FunctionPiece : public Piece {
 public:
   FunctionPiece(Pool &pool, const Piece &body);
 private:

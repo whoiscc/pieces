@@ -11,6 +11,13 @@
 #include <algorithm>
 #include <iterator>
 
+void Source::ForwardExpect(char expected) {
+  Forward();
+  if (Get() != expected) {
+    throw UnexpectedCharacter(*this, expected);
+  }
+}
+
 namespace {
   const std::string _SPACE_CHAR(" \r\n\t");
   const std::string _IDENTIFIER_END("`.(),");
@@ -92,7 +99,8 @@ namespace {
     try {
       while (true) {
         const Piece &nextPiece = _ParseNext(source, pool, context, parent);
-        Ptr<const Piece> appliedPiece = result.get().Apply(nextPiece);
+        Ptr<const Piece> appliedPiece =
+          static_cast<const Piece &>(result).Apply(nextPiece);
         Ref<const Piece> piece_ref = pool.Add(Move(appliedPiece), parent);
         result = piece_ref;
       }

@@ -15,4 +15,12 @@ private:
   Pool &_pool;
 };
 
+class PieceException : public Exception {
+public:
+  PieceException(const Piece &piece);
+  const Piece &GetPiece();
+private:
+  const Piece &_piece;
+};
+
 #endif

@@ -4,7 +4,12 @@
 #include "Piece/Apply.h"
 
 Ptr<const Piece> Piece::Apply(const Piece &other) const {
+  Debug("inside Piece::Apply");
   return Ptr<const Piece>(new ApplyPiece(_pool, *this, other));
+}
+
+Piece::~Piece() {
+  //
 }
 
 Piece::Piece(Pool &pool) : _pool(pool) {}

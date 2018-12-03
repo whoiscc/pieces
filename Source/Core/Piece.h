@@ -7,6 +7,7 @@
 class Piece {
 public:
   virtual Ptr<const Piece> Apply(const Piece &other) const;
+  virtual ~Piece();
 protected:
   Piece(Pool &pool);
   void Hold(const Piece &piece);

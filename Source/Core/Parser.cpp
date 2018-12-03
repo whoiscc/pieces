@@ -20,7 +20,10 @@ void Source::ForwardExpect(char expected) {
 }
 
 class NoMorePiece : public Exception {
-  //
+public:
+  NoMorePiece() {
+    SetMessage("NoMorePiece");
+  }
 };
 
 namespace {
@@ -101,8 +104,10 @@ namespace {
       }
       const ArgumentPiece &piece = ArgumentPiece::Get(
         pool, parent, std::distance(pos, context.rbegin()));
+      Debug("returning ArgumentPiece");
       return piece;
     } else {
+      Debug("found unknown character");
       throw UnknownCharacter(source);
     }
   }
@@ -113,11 +118,15 @@ namespace {
     Ref<const Piece> result(_ParseNext(source, pool, context, parent));
     try {
       while (true) {
+        Debug("begin _ParseApplySequence loop");
         const Piece &nextPiece = _ParseNext(source, pool, context, parent);
+        Debug("before applying");
         Ptr<const Piece> appliedPiece =
           static_cast<const Piece &>(result).Apply(nextPiece);
+        Debug("after applying");
         Ref<const Piece> piece_ref = pool.Add(Move(appliedPiece), parent);
         result = piece_ref;
+        Debug("end _ParseApplySequence loop");
       }
     } catch (NoMorePiece) {
       return result;

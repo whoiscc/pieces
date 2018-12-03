@@ -29,3 +29,7 @@ SymbolPiece::SymbolPiece(Pool &pool, std::string identifier)
 {
   //
 }
+
+SymbolPiece::~SymbolPiece() {
+  _table.erase(_identifier);
+}

@@ -21,6 +21,11 @@ ArgumentPiece::ArgumentPiece(Pool &pool, int depth)
   //
 }
 
+ArgumentPiece::~ArgumentPiece() {
+  Debug("inside ~ArgumentPiece");
+  _table.erase(_depth);
+}
+
 FunctionPiece::FunctionPiece(Pool &pool, const Piece &body)
   : Piece(pool), _body(body)
 {

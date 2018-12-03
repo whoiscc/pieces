@@ -10,6 +10,7 @@
 class ArgumentPiece : public Piece {
 public:
   static const ArgumentPiece &Get(Pool &pool, const Piece &parent, int depth);
+  virtual ~ArgumentPiece();
 private:
   ArgumentPiece(Pool &pool, int depth);
   int _depth;

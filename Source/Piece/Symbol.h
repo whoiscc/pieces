@@ -15,6 +15,7 @@ public:
     Pool &pool, const Piece &parent, const std::string &identifier
   );
   virtual Ptr<const Piece> Apply(const Piece &other) const;
+  virtual ~SymbolPiece();
 private:
   SymbolPiece(Pool &pool, std::string identifier);
   const std::string _identifier;

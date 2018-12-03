@@ -13,7 +13,7 @@ Ptr<const Piece> PhantomPiece::Apply(const Piece &other) const {
 PhantomGotApplied::PhantomGotApplied(
   const PhantomPiece &piece, const Piece &other
 ) : PieceException(piece), _appliee(other) {
-  //
+  SetMessage("PhantomGotApplied");
 }
 
 const Piece &PhantomGotApplied::GetAppliee() const {

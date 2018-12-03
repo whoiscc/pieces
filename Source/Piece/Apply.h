@@ -2,15 +2,16 @@
 #ifndef PIECES_SOURCE_PIECE_APPLY_H
 #define PIECES_SOURCE_PIECE_APPLY_H
 
-#include "../Piece.h"
-#include <memory>
-
+#include "Core/Base.h"
+#include "Core/Piece.h"
+#include "Core/Pool.h"
 
 class ApplyPiece : public Piece {
 public:
-  ApplyPiece(std::unique_ptr<Piece> applier, std::unique_ptr<Piece> appliee);
+  ApplyPiece(Pool &pool, const Piece &applier, const Piece &appliee);
+  ~ApplyPiece();
 private:
-  std::unique_ptr<Piece> _applier, _appliee;
+  const Piece &_applier, &_appliee;
 };
 
 #endif

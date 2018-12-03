@@ -1,26 +1,31 @@
 //
-#include "Symbol.h"
-#include <memory>
-
+#include "Piece/Symbol.h"
 
 std::unordered_map<
   std::string,
-  std::unique_ptr<SymbolPiece>
+  Ref<const SymbolPiece>
 > SymbolPiece::_table;
 
-SymbolPiece &SymbolPiece::Get(std::string identifier) {
+SymbolPiece const &SymbolPiece::Get(
+  Pool &pool,
+  const Piece &parent,
+  const std::string &identifier
+) {
   if (_table.count(identifier) == 0) {
-    _table[identifier] = std::make_unique<SymbolPiece>(SymbolPiece(identifier));
+    Ptr<const SymbolPiece> piece(new SymbolPiece(pool, identifier));
+    const SymbolPiece &piece_ref =
+      dynamic_cast<const SymbolPiece &>(pool.Add(Move(piece), parent));
+    _table.insert({ identifier, piece_ref });
   }
-  return *_table[identifier];
+  return _table.at(identifier);
 }
 
-std::unique_ptr<Piece> SymbolPiece::Apply(std::unique_ptr<Piece> other) {
+Ptr<const Piece> SymbolPiece::Apply(const Piece &other) const {
   throw std::exception();
 }
 
-SymbolPiece::SymbolPiece(std::string identifier)
-  : _identifier(identifier)
+SymbolPiece::SymbolPiece(Pool &pool, std::string identifier)
+  : Piece(pool), _identifier(identifier)
 {
   //
 }

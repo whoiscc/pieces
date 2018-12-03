@@ -1,12 +1,16 @@
 //
-#include "Apply.h"
-#include <memory>
-
+#include "Piece/Apply.h"
 
 ApplyPiece::ApplyPiece(
-  std::unique_ptr<Piece> applier,
-  std::unique_ptr<Piece> appliee
-) : _applier(std::move(applier)), _appliee(std::move(appliee))
-{
-  //
+  Pool &pool,
+  const Piece &applier,
+  const Piece &appliee
+) : Piece(pool), _applier(applier), _appliee(appliee) {
+  Hold(_applier);
+  Hold(_appliee);
+}
+
+ApplyPiece::~ApplyPiece() {
+  Drop(_applier);
+  Drop(_appliee);
 }
